@@ -1,0 +1,5 @@
+name: EconomySystem
+version: '1.0-SNAPSHOT'
+main: dev.m7med.economysystem.EconomySystem
+api-version: '1.21'
+depend: [Vault]

@@ -1,0 +1,41 @@
+# Economy System Configuration
+SystemName: "EconomySystem"
+CurrencyName: "Dollar"
+CurrencyNamePlural: "Dollars"
+
+# Command Messages (MiniMessage Format)
+messages:
+  # /baltop
+  Top-Format: "<gold>#<rank> %player% has %amount%</gold>"
+  Error-Top-Invalid-Amount: "<red>Please enter a valid amount!"
+
+  # /pay command
+  Error-Pay-Onself: "<red>You can't pay yourself!"
+  Error-Pay-Insufficient-Funds: "<red>You don't have enough %currency% to send!"
+  Error-Pay-Invalid-Amount: "<red>Please enter a valid amount!"
+  Error-Pay-Console: "<red>Console can't use /pay"
+  Pay-Success-Sender: "<green>You sent <yellow>%amount% %currency% <green>to <aqua>%player%"
+  Pay-Success-Receiver: "<green>You received <yellow>%amount% %currency% <green>from <aqua>%player%"
+
+  # /balance
+  Error-Console-Balance-onself: "<red>Console can't have a balance"
+  Balance-onself: "<green>Your balance: <yellow>%amount%"
+  Balance-Other: "<green>%player%'s balance: <yellow>%amount%"
+
+  # /eco give
+  Give-Success: "<green>You added <yellow>%amount% %currency% <green>to <aqua>%player%'s balance"
+  Give-Receiver: "<green>Your balance has been increased by <yellow>%amount% %currency%"
+
+  # /eco take
+  Take-Success: "<green>You removed <yellow>%amount% %currency% <green>from <aqua>%player%'s balance"
+  Take-Receiver: "<red><aqua>%amount% %currency% <red>was taken from your balance"
+  Error-Take-Insufficient-Funds: "<red>%player% doesn't have enough %currency% to take!"
+
+
+  # /eco set
+  Set-Success: "<green>You set <aqua>%player%'s <green>balance to <yellow>%amount% %currency%"
+  Set-Receiver: "<yellow>Your balance was set to <yellow>%amount% %currency%"
+
+  # /eco reset
+  Reset-Success: "<green>You reset <aqua>%player%'s <green>balance to <yellow>0 %currency%"
+  Reset-Receiver: "<red>Your balance has been reset to <yellow>0 %currency%"
