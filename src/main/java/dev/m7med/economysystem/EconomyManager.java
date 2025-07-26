@@ -94,7 +94,24 @@ public class EconomyManager {
             }
         }, 1200L, 1200L);
     }
+    public void unloadPlayer(UUID uuid) {
+        Bukkit.getScheduler().runTaskAsynchronously(EconomySystem.getInstance(), () -> {
+            if (balanceCache.containsKey(uuid)) {
+                String sql = "INSERT OR REPLACE INTO players (uuid, balance, username) VALUES (?, ?, ?)";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, uuid.toString());
+                    statement.setDouble(2, balanceCache.get(uuid));
+                    statement.setString(3, usernameCache.get(uuid));
+                    statement.executeUpdate();
+                } catch (SQLException e) {
+                    EconomySystem.getInstance().getLogger().severe("Failed to save player data before unloading: " + e.getMessage());
+                }
 
+                balanceCache.remove(uuid);
+                usernameCache.remove(uuid);
+            }
+        });
+    }
     private void saveAllToDatabase() {
         String sql = "INSERT OR REPLACE INTO players (uuid, balance, username) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

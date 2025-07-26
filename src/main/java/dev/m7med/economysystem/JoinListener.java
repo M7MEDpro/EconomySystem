@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinListener implements Listener {
     private final EconomyManager economyManager;
@@ -20,7 +21,10 @@ public class JoinListener implements Listener {
         }
         economyManager.loadPlayer(event.getPlayer().getUniqueId(), player.getName());
     }
-
+@EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        economyManager.unloadPlayer(event.getPlayer().getUniqueId());
+}
 
 
 }
