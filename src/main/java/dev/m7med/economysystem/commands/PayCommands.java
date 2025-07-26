@@ -2,10 +2,7 @@ package dev.m7med.economysystem.commands;
 
 import dev.m7med.economysystem.EconomyManager;
 import dev.velix.imperat.BukkitSource;
-import dev.velix.imperat.annotations.Command;
-import dev.velix.imperat.annotations.Dependency;
-import dev.velix.imperat.annotations.Description;
-import dev.velix.imperat.annotations.Usage;
+import dev.velix.imperat.annotations.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -13,6 +10,7 @@ import java.util.Map;
 
 @Command("pay")
 @Description("Send money to another player")
+@Permission("eco.pay")
 public class PayCommands {
     @Dependency
     private EconomyManager economyManager;
