@@ -27,7 +27,7 @@ public class BalTopCommand {
 
     public void useWithNumber(BukkitSource source,int amount) {
         if(amount <= 0) {
-            economyManager.get("Error-Pay-Invalid-Amount","<red>Please enter a valid amount!");
+          source.reply( economyManager.get("Error-Pay-Invalid-Amount","<red>Please enter a valid amount!")); ;
             return;}
         List<Component> messages = economyManager.getTopBalances(amount);
         for (Component msg : messages) {

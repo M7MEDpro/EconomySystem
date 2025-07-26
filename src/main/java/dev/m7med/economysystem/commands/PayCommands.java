@@ -21,7 +21,7 @@ public class PayCommands {
             source.reply(economyManager.get("Error-Pay-Onself","<red>You can't pay yourself!"));
             return;
         }
-        if(amount <= 0||amount > economyManager.getBalance(player.getUniqueId())) {
+        if(amount <= 0||amount > economyManager.getBalance(source.asPlayer().getUniqueId())) {
             source.reply(economyManager.get("Error-Pay-Invalid-Amount","<red>Please enter a valid amount!"));
             return;
         }
