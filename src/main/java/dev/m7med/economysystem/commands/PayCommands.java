@@ -21,10 +21,11 @@ public class PayCommands {
             source.reply(economyManager.get("Error-Pay-Onself","<red>You can't pay yourself!"));
             return;
         }
-        if(amount <= 0) {
+        if(amount <= 0||amount > economyManager.getBalance(player.getUniqueId())) {
             source.reply(economyManager.get("Error-Pay-Invalid-Amount","<red>Please enter a valid amount!"));
             return;
         }
+
         economyManager.withdraw(source.asPlayer().getUniqueId(), amount);
         economyManager.deposit(player.getUniqueId(), amount);
         Map<String, String> senderPlaceholders = new HashMap<>();

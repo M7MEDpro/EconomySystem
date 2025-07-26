@@ -42,6 +42,7 @@ public class AdminCommands {
                 "<green>Your balance has been increased by <yellow>%amount% %currency%"
         ));
     }
+    @SubCommand("take")
     public void take(BukkitSource source, Player player, double amount) {
         double currentAmount = economyManager.getBalance(player.getUniqueId());
 
@@ -109,7 +110,7 @@ public class AdminCommands {
     }
     @SubCommand("reset")
     public void reset(BukkitSource source, Player player) {
-        economyManager.setBalance(player.getUniqueId(), 0);
+        economyManager.setBalance(player.getUniqueId(), economyManager.getDefaultBalance());
 
         Map<String, String> senderPlaceholders = new HashMap<>();
         senderPlaceholders.put("currency", economyManager.getCurrencyNamePlural());

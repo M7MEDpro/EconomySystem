@@ -2,7 +2,8 @@
 SystemName: "EconomySystem"
 CurrencyName: "Dollar"
 CurrencyNamePlural: "Dollars"
-
+DefaultTop : 5 # /bal top with no amount will show 5
+defaultBalance: 100
 # Command Messages (MiniMessage Format)
 messages:
   # /baltop

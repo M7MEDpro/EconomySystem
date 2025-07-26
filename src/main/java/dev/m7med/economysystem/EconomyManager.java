@@ -15,6 +15,8 @@ public class EconomyManager {
     private final FileConfiguration config = EconomySystem.getInstance().getConfig();
     private final String systemName = config.getString("SystemName");
     private final String currencyName = config.getString("CurrencyName");
+    private final int defaultBalance = config.getInt("DefaultBalance");
+    private final int defaultTop = config.getInt("DefaultTop");
     private final String currencyNamePlural = config.getString("CurrencyNamePlural");
     public static Component get(String key, Map<String, String> placeholders, String defaultMessage) {
 
@@ -74,14 +76,24 @@ public class EconomyManager {
     public void createAccount(UUID uuid, String name) {
         if (hasAccount(uuid)) return;
 
-        String sql = "INSERT INTO players (uuid, balance, username) VALUES (?, 0, ?)";
+        String sql = "INSERT INTO players (uuid, balance, username) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, uuid.toString());
-            statement.setString(2, name);
+            statement.setDouble(2, defaultBalance);
+            statement.setString(3, name);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to create account", e);
         }
+
+    }
+
+    public int getDefaultBalance() {
+        return defaultBalance;
+    }
+
+    public int getDefaultTop() {
+        return defaultTop;
     }
 
     public double getBalance(UUID uuid) {

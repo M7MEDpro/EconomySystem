@@ -18,7 +18,7 @@ public class BalTopCommand {
     @Usage
 
     public void useNoNumber(BukkitSource source) {
-        List<Component> messages = economyManager.getTopBalances(5);
+        List<Component> messages = economyManager.getTopBalances(economyManager.getDefaultTop());
         for (Component msg : messages) {
             source.reply(msg);
         }
