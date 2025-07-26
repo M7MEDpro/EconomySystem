@@ -18,6 +18,7 @@ public class JoinListener implements Listener {
         if (!economyManager.hasAccount(player.getUniqueId())) {
             economyManager.createAccount(player.getUniqueId(), player.getName());
         }
+        economyManager.loadPlayer(event.getPlayer().getUniqueId(), player.getName());
     }
 
 
