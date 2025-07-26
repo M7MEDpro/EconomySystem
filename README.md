@@ -51,17 +51,91 @@ A comprehensive economy system that demonstrates **advanced Java development pra
 
 <div align="center">
 
+### **Player Commands**
+
+| Command | Aliases | Description | Permissions |
+|---------|---------|-------------|-------------|
+| 💰 `/balance` | `/bal` | Check your own balance or another player's balance | `eco.bal` |
+| 💸 `/pay <player> <amount>` | - | Transfer money securely to another player | `eco.pay` |
+| 🏆 `/baltop [amount]` | - | View wealth leaderboard (default: top 5, customizable) | `eco.baltop` |
+
+### **Administrative Commands**
+
 | Command | Description | Permissions |
 |---------|-------------|-------------|
-| 💰 `/balance` | Check player balances | `eco.bal` |
-| 💸 `/pay <player> <amount>` | Transfer money securely | `eco.pay` |
-| 🏆 `/baltop [amount]` | View wealth leaderboard | `eco.baltop` |
-| ⚙️ `/aeco give <player> <amount>` | Administrative money management | `eco.admincommands` |
-| ⚙️ `/aeco take <player> <amount>` | Remove player funds | `eco.admincommands` |
-| ⚙️ `/aeco set <player> <amount>` | Set exact balance | `eco.admincommands` |
-| ⚙️ `/aeco reset <player>` | Reset player balance | `eco.admincommands` |
+| ⚙️ `/aeco give <player> <amount>` | Add money to a player's balance | `eco.admincommands` |
+| ⚙️ `/aeco take <player> <amount>` | Remove money from a player's balance | `eco.admincommands` |
+| ⚙️ `/aeco set <player> <amount>` | Set a player's balance to a specific amount | `eco.admincommands` |
+| ⚙️ `/aeco reset <player>` | Reset a player's balance to zero | `eco.admincommands` |
+
+### **Command Usage Examples**
 
 </div>
+
+```bash
+# Player Commands
+/balance                    # Check your own balance
+/bal                       # Alternative command for balance
+/balance PlayerName        # Check another player's balance
+/pay Steve 100            # Send 100 currency to Steve
+/baltop                   # Show top 5 richest players
+/baltop 10               # Show top 10 richest players
+
+# Administrative Commands
+/aeco give Steve 1000     # Give Steve 1000 currency
+/aeco take Steve 500      # Remove 500 currency from Steve
+/aeco set Steve 2000      # Set Steve's balance to exactly 2000
+/aeco reset Steve         # Reset Steve's balance to 0
+```
+
+### **Advanced Features**
+
+<table>
+<tr>
+<td width="50%">
+
+#### 🔒 **Security Features**
+- **Console Protection**: Pay command blocks console usage
+- **Self-Payment Prevention**: Players cannot pay themselves
+- **Insufficient Funds Checking**: Validates balance before transactions
+- **Input Validation**: Prevents negative amounts and invalid inputs
+- **Permission-Based Access**: Granular permission control
+
+</td>
+<td width="50%">
+
+#### 💬 **Rich Feedback System**
+- **Dual Notifications**: Both sender and receiver get notifications
+- **Contextual Messages**: Different messages for different scenarios
+- **Error Handling**: Descriptive error messages with suggestions
+- **Success Confirmations**: Clear confirmation of completed actions
+- **Administrative Feedback**: Special styling for admin operations
+
+</td>
+</tr>
+</table>
+
+### **Smart Command Behavior**
+
+- **Balance Command**:
+    - Works on self when no player specified
+    - Supports checking other players' balances
+    - Console-safe with appropriate error handling
+
+- **Pay Command**:
+    - Automatic transaction processing
+    - Real-time balance updates
+    - Comprehensive validation checks
+
+- **Baltop Command**:
+    - Flexible display count (default: 5 players)
+    - Customizable ranking display
+    - Efficient database querying
+
+- **Admin Commands**:
+    - Instant balance modifications
+    - Notification system for affected players
+    - Comprehensive placeholder support
 
 ---
 
@@ -148,11 +222,15 @@ imperat = BukkitImperat.builder(this)
 </div>
 
 ```sql
-CREATE TABLE players (
+CREATE TABLE IF NOT EXISTS players (
     uuid TEXT PRIMARY KEY,      -- Future-proof UUID identification
-    balance REAL DEFAULT 0,     -- Precise monetary values
+    balance REAL DEFAULT 0.0,   -- Precise monetary values
     username TEXT NOT NULL      -- Human-readable identification
 );
+
+-- Performance indexes
+CREATE INDEX IF NOT EXISTS idx_balance ON players(balance DESC);
+CREATE INDEX IF NOT EXISTS idx_username ON players(username);
 ```
 
 **Key Features:**
@@ -223,6 +301,7 @@ Security indicators
 SystemName: "EconomySystem"
 CurrencyName: "Dollar"
 CurrencyNamePlural: "Dollars"
+DefaultBalance: 0.0
 
 # 🎨 Message Customization (MiniMessage Format)
 messages:
@@ -236,6 +315,17 @@ messages:
   # 🛡️ Security & Validation
   Error-Pay-Insufficient-Funds: "<red>❌ Insufficient funds!"
   Error-Pay-Invalid-Amount: "<red>⚠️ Please enter a valid amount!"
+  
+  # Additional error messages
+  Error-Player-Not-Found: "<red>❌ Player not found or never joined!"
+  Error-Pay-Self: "<red>❌ You cannot pay yourself!"
+  Error-Console-Pay: "<red>❌ Console cannot use the pay command!"
+  
+  # Admin messages
+  Admin-Give-Success: "<green>✅ Gave <yellow>%amount% %currency% <green>to <aqua>%player%"
+  Admin-Take-Success: "<green>✅ Took <yellow>%amount% %currency% <green>from <aqua>%player%"
+  Admin-Set-Success: "<green>✅ Set <aqua>%player%'s <green>balance to <yellow>%amount% %currency%"
+  Admin-Reset-Success: "<green>✅ Reset <aqua>%player%'s <green>balance to <yellow>0 %currency%"
 ```
 
 **Configuration Highlights:**
