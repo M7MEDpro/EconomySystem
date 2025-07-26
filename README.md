@@ -601,7 +601,6 @@ Enhanced performance
 | 📦 **JAR Size** | ~50KB | ~2.5MB | **98% smaller** |
 | 🧠 **Memory Usage** | ~0.5MB | ~5-15MB | **90-95% less** |
 | ⚡ **Startup Time** | ~50ms | ~300-500ms | **6-10x faster** |
-| 🎯 **Focus** | Economy only | 130+ features | **Specialized** |
 | 🎨 **Message Config** | 20+ keys | 500+ keys | **Simpler** |
 | 🔧 **Customization** | High | Medium | **More flexible** |
 
